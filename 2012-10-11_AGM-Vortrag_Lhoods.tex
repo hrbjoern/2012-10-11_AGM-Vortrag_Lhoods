@@ -84,6 +84,8 @@
 % New commands: (Talk version)
 \newcommand{\bit}{\begin{itemize}}
 \newcommand{\eit}{\end{itemize}}
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
 \newcommand{\bbl}{\begin{block}{}}
 \newcommand{\ebl}{\end{block}}
 \newcommand{\babl}{\begin{alertblock}{}}
@@ -104,26 +106,20 @@
 \newcommand{\hess}{{H.E.S.S.} }
 \newcommand{\dd}{\ensuremath{\; \mathrm{d}}}
 
+\renewcommand{\L}{\ensuremath{\mathcal{L}} }
 
 \setbeamercovered{dynamic}
 
 %\titlegraphic{\includegraphics[width=\textwidth]{HESS_900x174.png}}
 
-\title[DM \& HESS]{Dark matter searches with H.E.S.S.}
-\author[B. Opitz, Univ. Hamburg: ]{Bj\"{o}rn
-  Opitz\footnote{bjoern.opitz@desy.de}, Universit\"at Hamburg}
-%on behalf of the H.E.S.S. collaboration}
-\institute[Univ. Hamburg]{}
-%{\normalsize{on behalf of the H.E.S.S. collaboration}}
-%{\normalsize{Universit\"at Hamburg, Institut
-%    f\"ur Experimentalphysik}}  
+\title[DM \& HESS]{Combined likelihood analysis of \\ (dwarf galaxy) dark
+  matter searches}
+\author[]{Bj\"{o}rn Opitz\footnote{hrbjoern@gmail.com}}
+
 
 \begin{document}
-\date{ %\today
-%  \small{
-    Dark Matter at Leicester --- January 18, 2010 (!)
-%} \\  \vspace{3mm} October 8, 2009
-}
+\date{Allgemeines Gruppenmeeting, 11. Oktober 2012}
+
 
 \setcounter{framenumber}{-1}
 
@@ -143,6 +139,93 @@
 }
 
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Preliminaries}
+
+\bit
+  \item Poissonian probability mass function:
+\beq 
+%\begin{equation}
+P_p(x|\mu) = \frac{\mu^x}{x!}e^{-\mu}
+\eeq
+--- probability to observe $x$ events, when the expectation value is~$\mu$. \\
+
+%\vspace{10mm}
+
+  \item \textbf{Likelihood function} \L of a model, given some data:
+%\beq 
+\begin{equation}
+\L(\mu|x) = P(x|\mu) ,
+\end{equation}
+%\eeq
+The \emph{likelihood} of a model expectation $\mu$, given the
+data point $x$, is equal to the \emph{probability} of the data point
+$x$, given the expectation value~$\mu$. 
+%Important: In general, $\int \L
+%\neq 1$, \L is \emph{not} a PDF.
+
+\eit
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Profile likelihood analyses}
+
+\bit 
+  \item Simple (1D) case: Assuming 
+\beq
+\L \left(\vec{\pi}=(p, \vec{n})|\vec{d} \right)
+\eeq
+with the parameter of interest $p$ and nuisance parameters $\vec{n}$, \\
+the \emph{profile likelihood} is defined as:
+
+\beq
+\mathcal{PL}(p_0|\vec{d}) = \frac{\max(\L(p=p_0, \vec{n}))}{\max(\L(p,
+  \vec{n}))}, 
+\eeq
+
+where the maximization is performed over the \emph{complete} parameter
+range ($\forall \pi$)
+for the denominator, but only for the subrange with $p=p_0$ for the
+numerator. \\ (\ra ``likelihood ratio test statistic'') 
+
+  \item Wilks \& Co.: $-2\ln (\mathcal{PL})$ approaches $\chi^2(1)$ \\
+    \ra possibility to infer parameter ranges / limits.
+\eit
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{\L for ACT observations}
+
+Two Poisson processes:
+\bit 
+  \item signal
+  \item background
+\eit
+
+  \begin{figure}[]
+%    \includegraphics[width=\textwidth]{AsterixEnde} %
+  \end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{\Huge $\mathcal{THE \: END}$}
+
+  \begin{figure}[]
+%    \includegraphics[width=\textwidth]{AsterixEnde} %
+  \end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}

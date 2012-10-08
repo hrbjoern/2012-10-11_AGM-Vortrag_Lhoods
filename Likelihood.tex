@@ -1,0 +1,295 @@
+%\documentclass[a4paper,11pt]{aastex}
+\documentclass[a4paper,12pt]{article}
+
+% Language & Encoding:
+\usepackage[latin1]{inputenc}
+%\usepackage[T1]{fontenc}
+%\usepackage[ngerman]{babel}
+
+% Math:
+\usepackage{amssymb,amsmath,wasysym}
+
+% Typefont:
+\usepackage{lmodern}
+\usepackage[urw-garamond]{mathdesign}
+%\usepackage{txfonts}
+%\usepackage{bookman}
+%\usepackage{mathpazo}
+
+
+% Graphics:
+\usepackage{graphicx}
+\usepackage{placeins} % allows \FloatBarrier
+
+% Color:
+\usepackage{color}
+
+% Bibliography:
+\usepackage[numbers,square]{natbib}   % ??
+%\usepackage{natbib}   % ??
+%\usepackage{plainnat}
+%\usepackage{aas_macros}
+
+% Misc:
+\parindent0pt
+
+% Captions:
+\usepackage{caption}
+\captionsetup{margin=10pt,font=small,textfont=it,labelfont=bf,format=hang}
+
+
+
+% New commands: (Paper version)
+\newcommand{\bit}{\begin{itemize}}
+\newcommand{\eit}{\end{itemize}}
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+\newcommand{\bbl}{\begin{block}{}}
+\newcommand{\ebl}{\end{block}}
+\newcommand{\babl}{\begin{alertblock}{}}
+\newcommand{\eabl}{\end{alertblock}}
+\newcommand{\ra}{ \ensuremath{\longrightarrow} }
+\newcommand{\Sun}{{\ensuremath{\tiny\astrosun}}}
+\newcommand{\Eth}{ {\ensuremath{E_{\textrm{th}}}} }
+\newcommand{\sigmav}{ {\ensuremath{\langle \sigma v \rangle}} }
+\newcommand{\cms}{ {\ensuremath{\textrm{ cm}^3/\textrm{s}}} }
+\newcommand{\jbar}{ {\ensuremath{\overline{J}} }}
+\newcommand{\jbardo}{ {\ensuremath{\overline{J}(\Delta\Omega)} }}
+\newcommand{\cbar}{ {\ensuremath{\overline{C}} }}
+\newcommand{\gr}{{\ensuremath{\gamma \textrm{-ray}} }}
+\newcommand{\grad}{\ensuremath{^{\textsf{o}}}}
+\newcommand{\degr}{\ensuremath{^{\circ}} }
+\newcommand{\gev}{ {\ensuremath{\textrm{ GeV}} }}
+\newcommand{\gevcm}{ {\ensuremath{\textrm{ GeV}^2/\textsf{cm}^5} }}
+\newcommand{\msun}{{\ensuremath{{\textrm M}_{\tiny\astrosun}}}}
+\newcommand{\hess}{{H.E.S.S.}}
+\newcommand{\wrt}{{with respect to} }
+\newcommand{\dd}{\ensuremath{\mathrm{d}}}
+\newcommand{\non}{\ensuremath{N_{\rm on}} }
+\newcommand{\noff}{\ensuremath{N_{\rm off}} }
+%\newcommand{\non}{\ensuremath{N_s}}
+%\newcommand{\non}{\ensuremath{N_{\rm on}}}
+
+\renewcommand{\L}{\ensuremath{\mathcal{L}} }
+
+
+\title{Likelihoods etc.}
+\author{Herr Björn Opitz\footnote{bjoern.opitz@desy.de}}
+
+\begin{document}
+\maketitle
+%\tableofcontents
+
+\section{Preliminaries}
+
+\subsection{Poissonian probability mass function:}
+\beq 
+P_p(x|\mu) = \frac{\mu^x}{x!}e^{-\mu}
+\eeq
+This is the probability to observe $x$ when the expectation value is
+$\mu$. \\
+
+\subsection{Likelihood function:}
+It seems that usually, \L is defined as:
+\beq 
+\L(\mu|x) = P(x|\mu) ,
+\eeq
+that is, the \emph{likelihood} of a model expectation $\mu$ given the
+data point $x$ is equal to the \emph{probability} of the data point
+$x$ given the expectation value $\mu$. Important: In general, $\int \L
+\neq 1$, \L is \emph{not} a PDF.
+
+\clearpage
+
+\section{Li \& Ma \& so on}
+
+%\subsection{Maximum Likelihood:}
+
+\subsection{Likelihood ratio testing:}
+LR test statistic:
+\beq
+\Lambda(x) = \frac{\L(\theta_0|x)}{\L(\theta|x)} 
+= \frac{\L(H_0)}{\L(H_1)}
+\eeq
+The null hypothesis $H_0$ is a special case of the alternative
+hypothesis (-ses?) $H_1$, and hence has less degrees of
+freedom. Therefore, $\L(H_1)$ is bound to be higher --- if the 
+value of $\Lambda$ is too small, the null hypothesis can be rejected.
+
+\subsubsection{Wilks' theorem:}
+For large sample sizes, $-2 \ln \Lambda$ approaches a $\chi^2$
+distribution with $N_{\rm dof}$ equal to the \emph{difference} in $N_{\rm dof}$
+between $H_0$ and $H_1$.
+
+\subsection{\hess-like Li\&Ma significance:}
+Wilks' theorem can be used to calculate how \emph{significantly} the
+signal disagrees with the null hypothesis ``no signal'' ($s = 0$).
+
+Definition of the Likelihood functions: Data $X$, parameters $E,T$;
+max. likelihood parameters $\hat{E},\hat{T}$, conditional max \L
+parameter $\hat{T}_c$ (under the condition that $s=0$). Expectation
+values $s,b$.
+\begin{align}
+\L_0(E_0,\hat{T}_c|X)  &= P(\non,\noff|s=0,b) \\
+&= P(\non|\langle\non\rangle)\times P(\noff|\langle\noff\rangle) \\[10pt]
+%\end{align}
+%\begin{align}
+\L_1(\hat{E},\hat{T}|X)  &= P(\non,\noff|s,b) \\
+&= P(\non|\langle\non\rangle = \non)\times P(\noff|\langle\noff\rangle = \noff)
+\end{align}
+
+(See paper for $\langle\rangle$ definitions in $\L_0$! This is, I
+guess, the main point in the Li\&Ma paper: They change a bit under the
+assumption that $s=0$.) \\
+
+\emph{NB:} Li\&Ma assume that the maximum likelihood values for the
+data are $\langle\non\rangle = \non$ and $\langle\noff\rangle =
+\noff$, for the calculation of $\L_1$. In principle, this likelihood
+maximisation has to be performed first.
+
+Using this, the significance $S$ can be calculated as 
+\beq 
+S = \sqrt{-2 \ln \Lambda}.
+\eeq
+See \texttt{Python/LiMa.py}.
+
+
+\section{Parameter estimation}
+We actually want to do something else: We want to estimate the
+parameter~$s$ and possibly derive a confidence interval or an upper
+limit to its value. 
+
+For this, we consider $\L_1$  and maximise it / minimise $-2\ln \L$
+\wrt  $s$: 
+\begin{align}
+\L_1(s,b|\non,\noff) &= P(\non|s,b)\times P(\noff|s,b) \\
+&= P_p(\non|\langle\non\rangle=s+\alpha b) \times 
+      P_p(\noff|\langle\noff\rangle=b) 
+\end{align}
+(\emph{Is this correct? Aren't $s$ and $\alpha b$ actually \emph{two}
+  Poisson processes?}) 
+
+Basically we have to calc. max \L \wrt both $s$ and $b$
+  simultaneously. How would that work? Anyway:
+\beq
+\rightarrow \L_1(s) = _p(\non|\langle\non\rangle=s+\alpha \noff) \times 
+      P_p(\noff|\langle\noff\rangle=\noff) , 
+\eeq
+assuming \noff as the best estimate for $b$. \\
+
+How well does this work? Let's see: Assuming 
+\[ s=20 \text{ or }0.0001, \alpha b = 200, b = 2000, \alpha = 0.1,\]
+ the (modified) Likelihood function $-2 \ln\L(s)$  is shown in
+ fig. \ref{fig:L1}. Also shown (as vertical lines) are
+ the values where $-2 \ln\L(s) = -2 \ln \L_{\rm max} + 1$, i.e. where the
+ $1\sigma$ error bars end. 
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.45\textwidth]{2011-04-20_Nsgleich20.eps}
+%  \caption{$s = 20$}
+  \includegraphics[width=0.45\textwidth]{2011-04-20_Nsgleichnull.eps}
+  \caption{left: $s = 20$, right: $s = 0.0001$}
+  \label{fig:L1}
+\end{figure}
+% \begin{figure}[hb]
+%   \centering
+%   \includegraphics[width=0.4\textwidth]{2011-04-20_Nsgleichnull.eps}
+%   \caption{$s = 0$}
+%   \label{fig:L2}
+% \end{figure}
+
+\clearpage
+For 10,000 simulations, the ``$s$ of maximum $\L$'' values are distributed
+as shown in fig. \ref{fig:smin}:
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.7\textwidth]{2011-04-20_Gaussian_smin.eps}
+  \caption{$s_{\rm min}$ distribution (normalized to area) for 10,000 simulated
+    measurements, $\hat{s} = 0.001$.}
+  \label{fig:smin}
+\end{figure}
+
+
+The distribution of $\sqrt{-2 \ln \Lambda(s)}$, i.e. what should look like a
+$\sqrt{\chi^2(1)}$ distribution (really?), is shown in fig. \ref{fig:SL} together with
+a one-sided normal Gaussian.
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.45\textwidth]{2011-05-02_sqrtLambda_log.eps}
+  \includegraphics[width=0.45\textwidth]{2011-05-02_sqrtLambda_lin.eps}
+  \caption{ $\sqrt{-2\ln\Lambda(s)}$ distribution (normalized to area) for
+    10,000 simulated   measurements, $\hat{s} = 0.0001$. Note: Left
+    and right do \emph{not} show the same distribution.}
+  \label{fig:SL}
+\end{figure}
+
+For comparison: Fig. \ref{fig:s20} shows the same distribution for
+$\hat{s}=20$ events in 10,000 measurements. (Adding all measurements up
+amounts  to 132 $\sigma$ significance!)
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.7\textwidth]{2011-04-21_sqrtLambda_log_s20.eps}
+  \caption{ $\sqrt{\Lambda(s)}$ distribution (normalized to area) for
+    10,000 simulated   measurements, $\hat{s} = 20$}
+  \label{fig:s20}
+\end{figure}
+%\clearpage
+\FloatBarrier
+
+\section{Combined Likelihood functions}
+
+Generically: $i = 1...N$ measurements, 
+\begin{align}
+\L_{\rm tot} &= \prod_i \L_i \\
+\ra -2\ln \L_{\rm tot} &= -2 \sum_i (\ln \L_i) \\
+&\equiv \sum_i \mathtt{logLhood[i] \text{ in } Likelihood.py.}
+\end{align}
+
+
+\ra Fig. \ref{fig:CombL}: Plots für 10(00) Messungen, als Funktion von $s$ bei gemeinsamem
+$\hat{s}$ 
+
+\ra später auf \sigmav übertragen!(?) 
+
+\ra Noch später: \jbar samt Unsicherheiten ?
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.44\textwidth]{2011-05-02_CombLhood_neu_10-20.eps}
+  \includegraphics[width=0.44\textwidth]{2011-05-02_CombLhood_neu_Garamond.eps}
+  \includegraphics[width=0.44\textwidth]{2011-05-02_CombLhood_neu_10-0.eps}
+  \includegraphics[width=0.44\textwidth]{2011-05-02_CombLhood_neu_1000-0.eps}
+  \caption{Combined $\L(s)$ for $N = 10 / 1000$ ``measurements''
+    simulated around the expectation value  $\hat{s} =  20 / 0.001$,
+    each fig. showing the result of a single ``run''} 
+  \label{fig:CombL}
+\end{figure}
+%\clearpage
+\FloatBarrier
+
+\section{What's next?}
+
+\begin{enumerate}
+  \item Was ist mit negativen Signifikanzen?
+  \item $S$-Verteilung für 10 / 100 Messungen?
+  \item Gesamt-$S$ für (1000$\times$ 10) Messungen?
+  \item (Was ist denn nun $\chi^2$-verteilt, \L oder die likelihood
+    ratio?) 
+  \item (Was ist mit combined $\L$'s?)
+  \item Wieso funzt (dort?) die Signifikanz-Bestimmung nicht?
+  \item Wie übertragen wir das dann auf \sigmav?
+\end{enumerate}
+
+% Bibliography:
+%\bibliographystyle{amsplain}
+%\bibliography{References.bib}
+
+%\include{aas_macros}
+%\bibliographystyle{apj}
+%\bibliography{apj-jour.bib,References.bib}
+
+%\printindex
+
+
+\end{document}

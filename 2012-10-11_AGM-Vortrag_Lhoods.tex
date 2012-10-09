@@ -93,7 +93,7 @@
 \newcommand{\ra}{ \ensuremath{\longrightarrow} }
 \newcommand{\Sun}{{\ensuremath{\tiny\astrosun}}}
 \newcommand{\Eth}{ {\ensuremath{\textsf{E}_{\textsf{th}}}} }
-\newcommand{\sigmav}{ {\ensuremath{\langle \sigma v \rangle}} }
+\newcommand{\sigmav}{ {\ensuremath{\langle \sigma \rm v \rangle}} }
 \newcommand{\cms}{ {\ensuremath{\textsf{ cm}^3/\textsf{s}}} }
 \newcommand{\jbar}{ {\ensuremath{\overline{J}} }}
 \newcommand{\cbar}{ {\ensuremath{\overline{C}} }}
@@ -106,13 +106,18 @@
 \newcommand{\hess}{{H.E.S.S.} }
 \newcommand{\dd}{\ensuremath{\; \mathrm{d}}}
 
+\newcommand{\non}{\ensuremath{N_{\sf on}}}
+\newcommand{\noff}{\ensuremath{N_{\sf off}}}
+\newcommand{\tobs}{\ensuremath{T_{\sf obs}}}
+\newcommand{\aeff}{\ensuremath{A_{\sf eff}}}
+
 \renewcommand{\L}{\ensuremath{\mathcal{L}} }
 
 \setbeamercovered{dynamic}
 
 %\titlegraphic{\includegraphics[width=\textwidth]{HESS_900x174.png}}
 
-\title[DM \& HESS]{Combined likelihood analysis of \\ (dwarf galaxy) dark
+\title[]{Combined likelihood analysis of \\ (dwarf galaxy) dark
   matter searches}
 \author[]{Bj\"{o}rn Opitz\footnote{hrbjoern@gmail.com}}
 
@@ -125,18 +130,12 @@
 
 \frame{\titlepage}
 
-\setcounter{framenumber}{-1}
+% \setcounter{framenumber}{-1}
 
-\frame{
-  \frametitle{Overview}
-
-  \tableofcontents
-
-%\begin{figure}[]
-%  \includegraphics[angle=90,width=\textwidth]{ss}
-%\end{figure}
-
-}
+% \frame{
+%   \frametitle{Overview}
+%   \tableofcontents
+% }
 
 
 
@@ -148,11 +147,14 @@
   \item Poissonian probability mass function:
 \beq 
 %\begin{equation}
-P_p(x|\mu) = \frac{\mu^x}{x!}e^{-\mu}
+P(x|\mu) = \frac{\mu^x}{x!}e^{-\mu}
 \eeq
 --- probability to observe $x$ events, when the expectation value is~$\mu$. \\
 
 %\vspace{10mm}
+
+ ~ 
+
 
   \item \textbf{Likelihood function} \L of a model, given some data:
 %\beq 
@@ -206,63 +208,184 @@ numerator. \\ (\ra ``likelihood ratio test statistic'')
 Two Poisson processes:
 \bit 
   \item signal
-  \item background
+  \item background 
+\eit 
+
+ ~ 
+
+Construct Likelihood as: 
+\beq
+\L(s,b|\non, \noff) = P(\non|s+\alpha b)\times P(\noff|b)
+\eeq
+Simplifying step: Assume $b=\noff$.
+
+ ~ 
+
+\emph{Dark matter} signal expectation: 
+
+\beq
+s  = \frac{\sigmav}{8\pi m_\chi^2} \times T_{\sf obs} \times \jbar
+\times \int dE\; A_{\sf eff}(E) \frac{dN}{dE}(E)
+\eeq
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Combined likelihood / stacking analysis}
+
+Combined likelihood of several data sets:
+
+\beq
+\mathcal{CL} = \prod_i \L_i
+\eeq
+
+ ~ 
+
+Include uncertainty of \jbar for each data set:
+
+\beq
+\L_i \ra \L_i \left(\sigmav, m_\chi, \jbar_i | \non, \noff \right) 
+\times PDF(\jbar_i),
+\eeq 
+
+assuming a log-normal distribution of true \jbar around the values
+determined by the people who do these things (Walker et al 2011,
+Charbonnier et al. 2011).
+
+\beq 
+PDF(\jbar) = \frac{1}{\sqrt{2\pi}\ln(10)\jbar_i\sigma_{\jbar, i}} 
+\exp \left\{-0.5\frac{[\log(\jbar_i) - \log(\jbar_{{\sf mean},i})]^2
+  }{\sigma_{\jbar, i}^2} \right\}   
+\eeq
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Data: from selected publications of highest quality}
+
+  \begin{figure}[]
+    \includegraphics[width=\textwidth]{Data1_Nevents.jpg}
+  \end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Data: from selected publications of highest quality}
+
+  \begin{figure}[]
+    \includegraphics[width=\textwidth]{Data2_Jbars.jpg}
+  \end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Combined likelihood}
+
+Hence, the full combined likelihood is a function of:
+\bit
+  \item  $\sigmav$, $m_\chi$ and the (``true'') \jbar factors of all
+    targets
+  \item the experimental parameters of each observation ($T_{\sf obs}, A_{\sf eff}$) 
+  \item and, of course, the experimental results (\non, \noff)
+\eit 
+
+ ~ 
+
+Next step: Calculate the combined profile likelihood $\mathcal{PL}$,
+as a function of fixed $\sigmav_f$, for each given DM mass \ra maximize over the $\jbar$'s:
+
+\beq
+-2 \ln \mathcal{PL}(\sigmav_f, m_f) = -2 \ln \left( \frac{\max\left[\mathcal{CL}(\sigmav_f,
+    m_f, \{\jbar\})\right]}{\max \left[\mathcal{CL}(\sigmav, m_f, \{\jbar\})\right]} \right)
+\eeq
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Profile likelihoods}
+
+  \begin{figure}[]
+    \includegraphics[width=.9\textwidth]{2012-10-05_50steps_PLs_neuerPlot.pdf}
+  \end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Results: Combined upper limit on \sigmav}
+
+  \begin{figure}[]
+    \includegraphics[width=.9\textwidth]{2012-10-05_50steps_Excl_neuerPlot.pdf}
+  \end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Backup: Results: negative excess obs. only} 
+% \vspace{-1mm}
+% Only observations with negative excess:
+% \vspace{-3mm}
+  \begin{figure}[]
+    \includegraphics[width=.9\textwidth]{2012-10-05_negativeExcesses_Excl_neuerPlot.pdf}
+  \end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Profile likelihoods}
+Only observations with negative excess:
+  \begin{figure}[]
+    \includegraphics[width=0.8\textwidth]{2012-10-05_negativeExcesses_PLs.pdf}
+  \end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Profile likelihoods}
+Only observations with positive excess:
+  \begin{figure}[]
+    \includegraphics[width=.8\textwidth]{2012-10-05_positiveExcesses_PLs.pdf}
+  \end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Issues}
+\bit
+  \item How to deal with ``negative excesses'', or their influence on
+    the resulting UL?
+  \item Implement profile likelihood for parameter $b$?
+  \item Stability of minimizations ...
+  \item Implement profile likelihood for single observation limits?
+  \item 
+  \item 
+  \item 
 \eit
 
-  \begin{figure}[]
-%    \includegraphics[width=\textwidth]{AsterixEnde} %
-  \end{figure}
-
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{\Huge $\mathcal{THE \: END}$}
-
-  \begin{figure}[]
-%    \includegraphics[width=\textwidth]{AsterixEnde} %
-  \end{figure}
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{\Huge $\mathcal{THE \: END}$}
-
-  \begin{figure}[]
-%    \includegraphics[width=\textwidth]{AsterixEnde} %
-  \end{figure}
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{\Huge $\mathcal{THE \: END}$}
-
-  \begin{figure}[]
-%    \includegraphics[width=\textwidth]{AsterixEnde} %
-  \end{figure}
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{\Huge $\mathcal{THE \: END}$}
-
-  \begin{figure}[]
-%    \includegraphics[width=\textwidth]{AsterixEnde} %
-  \end{figure}
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-
+\setcounter{framenumber}{9}
 \end{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1142,7 +1265,7 @@ J. Ripken, ICRC 2009: Models excluded by GC observations
 % \end{frame}
 
 
-\setcounter{framenumber}{15}
+
 
 
 

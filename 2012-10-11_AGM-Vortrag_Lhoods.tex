@@ -118,7 +118,7 @@
 %\titlegraphic{\includegraphics[width=\textwidth]{HESS_900x174.png}}
 
 \title[]{Combined likelihood analysis of \\ (dwarf galaxy) dark
-  matter searches}
+  matter searches \\ with Cherenkov telescopes}
 \author[]{Bj\"{o}rn Opitz\footnote{hrbjoern@gmail.com}}
 
 
@@ -178,9 +178,11 @@ $x$, given the expectation value~$\mu$.
 
 \bit 
   \item Simple (1D) case: Assuming 
+
 \beq
 \L \left(\vec{\pi}=(p, \vec{n})|\vec{d} \right)
 \eeq
+
 with the parameter of interest $p$ and nuisance parameters $\vec{n}$, \\
 the \emph{profile likelihood} is defined as:
 
@@ -238,7 +240,7 @@ s  = \frac{\sigmav}{8\pi m_\chi^2} \times T_{\sf obs} \times \jbar
 Combined likelihood of several data sets:
 
 \beq
-\mathcal{CL} = \prod_i \L_i
+\mathcal{CL} = \prod_i \L_i\left(s, ...\right)
 \eeq
 
  ~ 
@@ -291,18 +293,21 @@ PDF(\jbar) = \frac{1}{\sqrt{2\pi}\ln(10)\jbar_i\sigma_{\jbar, i}}
 \begin{frame}
   \frametitle{Combined likelihood}
 
-Hence, the full combined likelihood is a function of:
+Hence, the full combined likelihood $\mathcal{CL}$ is a function of:
 \bit
   \item  $\sigmav$, $m_\chi$ and the (``true'') \jbar factors of all
-    targets
+    targets \\ (these are the ``free'' parameters!)
   \item the experimental parameters of each observation ($T_{\sf obs}, A_{\sf eff}$) 
-  \item and, of course, the experimental results (\non, \noff)
+  \item the experimental results (\non, \noff)
 \eit 
 
  ~ 
 
-Next step: Calculate the combined profile likelihood $\mathcal{PL}$,
-as a function of fixed $\sigmav_f$, for each given DM mass \ra maximize over the $\jbar$'s:
+Next step: 
+
+Calculate combined profile likelihood $\mathcal{PL}$,
+as a function of fixed $\sigmav_f$, for fixed DM masses $m_f$ \ra
+maximize $\mathcal{CL}$ over the $\jbar$'s:
 
 \beq
 -2 \ln \mathcal{PL}(\sigmav_f, m_f) = -2 \ln \left( \frac{\max\left[\mathcal{CL}(\sigmav_f,
@@ -336,7 +341,7 @@ as a function of fixed $\sigmav_f$, for each given DM mass \ra maximize over the
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Backup: Results: negative excess obs. only} 
+  \frametitle{``Backup'': Results: negative excess obs. only} 
 % \vspace{-1mm}
 % Only observations with negative excess:
 % \vspace{-3mm}
@@ -374,7 +379,9 @@ Only observations with positive excess:
 \bit
   \item How to deal with ``negative excesses'', or their influence on
     the resulting UL?
-  \item Implement profile likelihood for parameter $b$?
+    \bit
+      \item Implement profile likelihood for parameter $b$?
+    \eit
   \item Stability of minimizations ...
   \item Implement profile likelihood for single observation limits?
   \item 
